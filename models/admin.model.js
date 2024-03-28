@@ -2,28 +2,28 @@ const mongoose = require("mongoose")
 
 const adminSchema = new mongoose.Schema({
     adminname:{
-        name:String,
+        type:String,
         require:true,
         unique:[true,"admin already exist"],
         trim:true
     },
     mail:{
-        name:String,
+        type:String,
         require:true,
         unique:[true,"Email already exist"],
         trim:true
     },
     password:{
-        name:String,
+        type:String,
         require:true
     },
     mobile_no:{
-        name:Number,
+        type:Number,
         require:true,
         unique:[true,"mobile number Already exist"]
     },
     gender:{
-        name:String,
+        type:String,
         enum:["male","female"]
     }
 },{
