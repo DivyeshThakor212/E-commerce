@@ -15,13 +15,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
         trim: true,
-        unique : true
+       // unique : true
     },
     mobile_no :{
         type: Number,
         require: true,
         trim: true,
-        unique: true
+        //unique: true
     },
     gender:{
         type :String,
