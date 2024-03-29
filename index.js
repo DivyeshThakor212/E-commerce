@@ -5,8 +5,7 @@ const user = require("./routes/user.route")
 const dotenv = require("dotenv")
 dotenv.config()
 const {db} = require("./config/db")
-
-app.use(express.json());
+app.use(express.json())
 
 app.use("/api/v1",user)
 
