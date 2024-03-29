@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken")
 
 exports.loginuser = async(req,res) => {
     try {
-        console.log(req)
         const email = req.body.email
         const password = req.body.password
 
@@ -20,6 +19,11 @@ exports.loginuser = async(req,res) => {
             const accessToken = jwt.sign({ user: user}, process.env.SECRET_TOKEN, { expiresIn: "12h" });
             return res.status(200).json({
                 data:accessToken
+            })
+        }
+        else{
+            return res.status(200).send({
+                message:"password does not match, Try Again..."
             })
         }
     } catch (error) {
