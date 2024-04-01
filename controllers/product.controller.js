@@ -1,34 +1,7 @@
 const productModel = require("../models/product.model")
-const categoryModel = require("../models/category.model")
-
-//create
-exports.createProduct = async(req,res) => {
-   try {
-    const product = await productModel.create(req.body)
-    return res.status(200).send({
-        succes:true,
-        product
-    })
-   } catch (error) {
-    console.log(error)
-   }
-}
-
-//Create catogory
-exports.createcategory = async(req,res) => {
-   try {
-    const category = await categoryModel.create(req.body)
-    return res.status(200).send({
-        succes:true,
-        category
-    })
-   } catch (error) {
-    console.log(error)
-   }
-}
 
 //Delete catogory
-exports.deletecategory = async(req,res) => {
+exports.deleteCategory = async(req,res) => {
     try {
      let deletecategory =  await categoryModel.findById(req.params.id)
      if(!deletecategory){
