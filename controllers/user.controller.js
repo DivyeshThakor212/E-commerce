@@ -55,29 +55,50 @@ exports.registerUser = async(req,res) =>{
    }
 }
 
-exports.updateUser = async(req,res) =>{
-    try{
-    let user = await userModel.findById(req.params.id);
-    console.log(user,"user")
-    if(!user){
-        return res.status(200).send({status:false, message:"please provide correct Id"})
-    }
-    user = await userModel.findByIdAndUpdate(req.params.id,req.body,{
-        new :true,
-        runValidators: true,
-        useFindAndModify: false,
-    });
-    res.status(200).json({
-        status : true,
-        user
-    }) ;
-}
-      catch(error)  {
-        console.log(error)
-        return res.status(500).send({status: false, message: "internal server error"})
-      }
+ exports.getUser = async(req,res) =>{
+
+        try {
+            const user = await userModel.find()
+            return res.status(200).send({
+                status: true,
+                user
+            })
+        } catch (error) {
+            return res.status(500).send({
+                status:false,
+                message:"Users not found"
+            })  
+        }
+ }
  
-}
+ exports.updateUser = async(req,res) =>{
+    try {
+        const user = await userModel.findById(req.params.id)
+        if(!user)
+        {
+            return res.status(200).send({
+                status: false,
+                message:"please enter correct Id"
+            })
+        }
+        user = await userModel.findByIdAndUpdate(req.params.id,req.body,{
+            new : true,
+            runValidators : true,
+            useFindAndModify: false
+        })
+        return res.status(200).send({
+            status: true,
+            user
+        })        
+    
+    } catch (error) {
+         return res.status(500).send({
+            status:false,
+            message:"user not updated please try again"
+         })
+    }
+ }
+
 exports.deleteUser = async (req, res) => {
     try {
      let user = await userModel.findById(req.params.id)
@@ -87,7 +108,7 @@ exports.deleteUser = async (req, res) => {
          .json({ status: false, message: "please provide correct id" });
      }
    
-     user = await userModel.findByIdAndDelete(req.params.body)
+     user = await userModel.findByIdAndDelete(req.params.id)
    
      res.status(200).json({
        status: true,
