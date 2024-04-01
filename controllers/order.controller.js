@@ -19,7 +19,16 @@ exports.createOrder = async(req,res) =>{
 exports.getOrder = async(req,res) =>{
 
     try {
-        const order = await orderModel.find()
+    
+        const order = await orderModel.find().populate({
+            path : "user_id",
+            select :[ "name","address","email","mobile_no","gender"]
+        }).populate({
+            path : "product_id",
+                    "category": "clothes",
+            select : ["pname","category","price",""]
+        })
+        
         return res.status(200).send({
             status: true,
             order
