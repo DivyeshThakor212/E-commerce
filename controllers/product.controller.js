@@ -2,16 +2,19 @@ const productModel = require("../models/product.model")
 
 //create
 exports.createProduct = async(req,res) => {
-    try {
-     const product = await productModel.create(req.body)
-     return res.status(200).send({
-         succes:true,
-         product
-     })
-    } catch (error) {
-     console.log(error)
-    }
- }
+
+   try {
+    const product = await productModel.create(req.body)
+    return res.status(200).send({
+        succes:true,
+        product
+    })
+   } catch (error) {
+    console.log(error)
+   }
+}
+
+
 
 
 //read
