@@ -1,23 +1,15 @@
 const productModel = require("../models/product.model")
 
-//Delete catogory
-exports.deleteCategory = async(req,res) => {
+//create
+exports.createProduct = async(req,res) => {
     try {
-     let deletecategory =  await categoryModel.findById(req.params.id)
-     if(!deletecategory){
-         res.status(200).json({ succes:false, message:"please provide correct id" })
-     }
- 
-     deletecategory = await categoryModel.findByIdAndDelete(req.params.id)
-     return res.status(200).json({succes:true,message:"deleted succesfully"})
- 
-     
-    } catch (error) {
-     console.log(error,"error")
-     return res.status(500).send({
-         status:false,
-         message:"data not deleted "
+     const product = await productModel.create(req.body)
+     return res.status(200).send({
+         succes:true,
+         product
      })
+    } catch (error) {
+     console.log(error)
     }
  }
 

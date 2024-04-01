@@ -12,6 +12,23 @@ exports.createCategory = async(req,res) => {
      console.log(error)
     }
  }
+
+ //Get category
+ exports.getCategory = async(req,res) => {
+    try {
+        const allCategory = await categoryModel.find(req.body)
+    return res.status(200).send({
+        succes:true,
+        allCategory
+    })
+    } catch (error) {
+       console.log(error) 
+       return res.status(500).send({
+        succes:false,
+        message:"internal serer"
+       })
+    }
+}
  
  //Delete catogory
  exports.deleteCategory = async(req,res) => {
