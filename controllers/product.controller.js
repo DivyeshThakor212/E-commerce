@@ -15,7 +15,7 @@ exports.createProduct = async(req,res) => {
 }
 
 //Create catogory
-exports.createcategory = async(req,res) => {
+exports.createCategory = async(req,res) => {
    try {
     const category = await categoryModel.create(req.body)
     return res.status(200).send({
@@ -28,7 +28,7 @@ exports.createcategory = async(req,res) => {
 }
 
 //Delete catogory
-exports.deletecategory = async(req,res) => {
+exports.deleteCategory = async(req,res) => {
     try {
      let deletecategory =  await categoryModel.findById(req.params.id)
      if(!deletecategory){
