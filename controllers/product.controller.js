@@ -20,6 +20,7 @@ exports.createProduct = async(req,res) => {
 //read
 exports.getproduct = async(req,res) => {
     try {
+        // console.log(req.user.user.role === "admin")
         const allproduct = await productModel.find(req.body)
     return res.status(200).send({
         succes:true,
