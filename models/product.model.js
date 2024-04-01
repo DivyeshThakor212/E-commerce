@@ -6,11 +6,6 @@ const productSchema = new monngose.Schema({
         require:true,
         trim:true
     },
-    category:{
-        type:String,
-        enum:["grocery","clothes","cosmetics","footware"],
-        require:true
-    },
     price:{
         type:Number,
         require:true
