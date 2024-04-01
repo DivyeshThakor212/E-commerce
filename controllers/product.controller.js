@@ -1,4 +1,5 @@
 const productModel = require("../models/product.model")
+const categoryModel = require("../models/category.model")
 
 //create
 exports.createProduct = async(req,res) => {
@@ -12,6 +13,41 @@ exports.createProduct = async(req,res) => {
     console.log(error)
    }
 }
+
+//Create catogory
+exports.createcategory = async(req,res) => {
+   try {
+    const category = await categoryModel.create(req.body)
+    return res.status(200).send({
+        succes:true,
+        category
+    })
+   } catch (error) {
+    console.log(error)
+   }
+}
+
+//Delete catogory
+exports.deletecategory = async(req,res) => {
+    try {
+     let deletecategory =  await categoryModel.findById(req.params.id)
+     if(!deletecategory){
+         res.status(200).json({ succes:false, message:"please provide correct id" })
+     }
+ 
+     deletecategory = await categoryModel.findByIdAndDelete(req.params.id)
+     return res.status(200).json({succes:true,message:"deleted succesfully"})
+ 
+     
+    } catch (error) {
+     console.log(error,"error")
+     return res.status(500).send({
+         status:false,
+         message:"data not deleted "
+     })
+    }
+ }
+
 
 //read
 exports.getproduct = async(req,res) => {
