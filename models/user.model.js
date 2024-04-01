@@ -2,46 +2,46 @@ const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
 
-    name:{
+    name: {
         type: String,
-        require :true,
+        require: true,
         trim: true
     },
-    address:{
+    address: {
         type: String,
         require: true
     },
-    email:{
+    email: {
         type: String,
         require: true,
         trim: true,
-       // unique : true
+        // unique : true
     },
-    mobile_no :{
+    mobile_no: {
         type: Number,
         require: true,
         trim: true,
         //unique: true
     },
-    gender:{
-        type :String,
-        enum: ["male","female","transgender"]
+    gender: {
+        type: String,
+        enum: ["male", "female", "transgender"]
     },
-    dob :{
+    dob: {
         type: Date,
         require: true
     },
-    password :{
+    password: {
         type: String,
         require: true
     },
-    role:{
-        type : String,
-        enum:["user","admin"],
-        
+    role: {
+        type: String,
+        enum: ["user", "admin"],
+
     }
-    
-},{
+
+}, {
     timestamps: true,
 })
-module.exports = mongoose.model("User",userSchema)
+module.exports = mongoose.model("User", userSchema)

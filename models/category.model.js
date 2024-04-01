@@ -7,7 +7,7 @@ const catogorySchema = new mongoose.Schema({
         require:true
     },
     productid:{
-        ref:"user",
+        ref:"product",
         type: mongoose.Schema.Types.ObjectId,
         require:true
     }
