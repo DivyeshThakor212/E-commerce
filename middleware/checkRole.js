@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 
 const checkAdmin = (req, res, next) => {
@@ -34,4 +35,3 @@ const checkUser = (req, res, next) => {
 };
 
 module.exports = { checkAdmin, checkUser};
-//module.exports = { checkUser}
