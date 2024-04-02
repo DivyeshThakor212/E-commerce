@@ -36,7 +36,7 @@ exports.registerUser = async(req,res) =>{
 
    try {
     const payload = req.body;
-
+    
     var salt = await bcrypt.genSalt(10);
     var hashedPassword = bcrypt.hashSync(payload.password,salt)
     payload.password = hashedPassword;
