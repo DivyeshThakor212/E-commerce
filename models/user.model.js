@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
         require: true,
         trim: true,
-        unique: [true],
+        unique: [true, "Mobile Number Already Exist"],
     },
     gender: {
         type: String,
