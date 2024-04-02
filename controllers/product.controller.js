@@ -18,7 +18,7 @@ exports.createProduct = async(req,res) => {
 
 
 //read
-exports.getproduct = async(req,res) => {
+exports.getProduct = async(req,res) => {
     try {
         // console.log(req.user.user.role === "admin")
         const allproduct = await productModel.find(req.body)
@@ -36,7 +36,7 @@ exports.getproduct = async(req,res) => {
 }
 
 //update
-exports.updateprduct = async(req,res) => {
+exports.updateProduct = async(req,res) => {
    try {
     let product = await productModel.findById(req.params.id)
 
@@ -58,7 +58,7 @@ exports.updateprduct = async(req,res) => {
 }
 
 //Delete
-exports.deleteproduct = async(req,res) => {
+exports.deleteProduct = async(req,res) => {
    try {
     let deleteProduct =  await productModel.findById(req.params.id)
     if(!deleteProduct){
