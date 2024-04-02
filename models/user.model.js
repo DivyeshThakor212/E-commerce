@@ -12,17 +12,17 @@ const userSchema = new mongoose.Schema({
         require: true
     },
     email: {
-        type: String,
-        unique : [true, "you are alredy logedin"],
-        require: true,
-        trim: true,
+        type:String,
+        require:true,
+        unique: [true, "Email Already Exist"],
+        trim: true
       
     },
     mobile_no: {
         type: Number,
         require: true,
         trim: true,
-        unique: [true],
+        unique: [true, "Mobile Number Already Exist"],
     },
     gender: {
         type: String,
