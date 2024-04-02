@@ -6,8 +6,8 @@ const { checkAdmin,checkUser } = require("../middleware/checkRole")
 const router = express.Router()
 
 router.route("/create-product").post(authenticUser,checkAdmin,createProduct)
-router.route("/get-product").get(authenticUser,checkUser,getproduct)
-router.route("/update-product/:id").put(authenticUser,checkAdmin,updateprduct)
-router.route("/delete-product/:id").delete(authenticUser,checkAdmin,deleteproduct)
+router.route("/get-product").get(authenticUser,checkUser,getProduct)
+router.route("/update-product/:id").put(authenticUser,checkAdmin,updateProduct)
+router.route("/delete-product/:id").delete(authenticUser,checkAdmin,deleteProduct)
 
 module.exports = router

@@ -12,10 +12,10 @@ const userSchema = new mongoose.Schema({
         require: true
     },
     email: {
-        type: String,
-        unique : [true, "you are alredy logedin"],
-        require: true,
-        trim: true,
+        type:String,
+        require:true,
+        unique: [true, "Email Already Exist"],
+        trim: true
       
     },
     mobile_no: {
