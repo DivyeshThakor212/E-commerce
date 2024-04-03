@@ -21,10 +21,11 @@ exports.createProduct = async(req,res) => {
 exports.getProduct = async(req,res) => {
     try {
         // console.log(req.user.user.role === "admin")
-    const allproduct = await productModel.find(req.body)
+    
+    const product = await productModel.find()
        return res.status(200).send({
         succes:true,
-        allproduct
+        product
     })
     } catch (error) {
        console.log(error) 

@@ -16,22 +16,41 @@ exports.createOrder = async(req,res) =>{
         })
      }
 }
-exports.getOrder = async(req,res) =>{
-
+exports.getOrders = async(req,res) =>{
+    const page = parseInt(req.query.page) 
+    const limit = parseInt(req.query.limit) 
+    const skip = (page-1)*limit;
+    const trackingStatus = parseInt(req.query.trackingStatus)
+    const sortBy = req.query.sortBy
+    const sortOrder = req.query.sortOrder
+    const search = req.query.searchTerm
     try {
-    
-        const order = await orderModel.find().populate({
-            path : "user_id",
+        const filter ={};
+        const sort = {[sortBy]:sortOrder}
+        if(trackingStatus) {
+            filter.trackingStatus = trackingStatus;
+        }  
+        if(search){
+            filter.search = {$regex: new RegExp(search, "i")}
+        }
+        const orders = await orderModel.find(filter).skip(skip).limit(limit).sort(sort).populate({
+            path : "userId",
             select :[ "name","address","email","mobile_no","gender"]
         }).populate({
-            path : "product_id",
+            path : "productId",
                     "category": "clothes",
             select : ["pname","category","price",""]
         })
-        
+       
+        const totalOrder = await orderModel.countDocuments();
+
+        if (!orders.length) {
+            return res.status(200).json({ status: false, message: "no data found" });
+        }
+      
         return res.status(200).send({
             status: true,
-            order
+            orders,totalOrder
         })
         
     } catch (error) {
@@ -41,7 +60,27 @@ exports.getOrder = async(req,res) =>{
             message: "Internal server error"
         })
     }
+
 }
+
+exports.getOrder = async (req, res) => {
+    try {
+      const order = await orderModel.findById(req.params.id);
+      console.log(order, "order");
+      if (!order) {
+        return res
+          .status(200)
+          .send({ status: false, message: "please provide correct id" });
+      }
+      return res.status(200).send({ status: true, order });
+    } catch (error) {
+      console.log(error, "error");
+      return res
+        .status(500)
+        .send({ status: false, message: "internal server error" });
+    }
+  };
+  
 
 //update
 exports.updateOrder = async(req,res) => {

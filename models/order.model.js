@@ -2,20 +2,19 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
   {
-    user_id: {
+    userId: {
       ref: "User",
       type: mongoose.Schema.Types.ObjectId,
       require: true,
     },
-    product_id: [
+    productId: [
       {
         ref: "product",
         type: mongoose.Schema.Types.ObjectId,
         require: true,
       },
     ],
-
-    tracking_status: {
+    trackingStatus: {
       type: String,
       enum: ["complete", "pending", "on the way"],
       require: true,
@@ -24,7 +23,7 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       require: true,
     },
-    add_gift: {
+    addGift: {
       type: Boolean,
       require: true,
     },
