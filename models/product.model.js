@@ -1,7 +1,8 @@
-const { default: mongoose } = require("mongoose")
-const monngose = require("mongoose")
 
-const productSchema = new monngose.Schema({
+const mongoose = require("mongoose")
+
+
+const productSchema = new mongoose.Schema({
     pname:{
         type:String,
         require:true,
@@ -20,14 +21,23 @@ const productSchema = new monngose.Schema({
         type:String,
         enum:["available","out of stock"],
         require:true
+    }, 
+    category:{
+        ref:"Category",
+        type: mongoose.Schema.Types.ObjectId,
+        require:true
+    },
+    subCategory:{
+        ref:"subCategory",
+        type:  mongoose.Schema.Types.ObjectId,
+        require:true
     },
     reviewId:{
         ref: "Review",
         type:mongoose.Schema.Types.ObjectId,
     }
-
 },{
     timestamps:true,
 })
 
-module.exports = monngose.model("product",productSchema)
+module.exports = mongoose.model("product",productSchema)
