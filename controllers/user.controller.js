@@ -1,4 +1,4 @@
-const User = require("../models/user.model")
+const userModel = require("../models/user.model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
@@ -36,13 +36,13 @@ exports.registerUser = async(req,res) =>{
 
    try {
     const payload = req.body;
-    console.log("req.boyd",req.body);
+    console.log("req.body",req.body);
     var salt = await bcrypt.genSalt(10);
     var hashedPassword = bcrypt.hashSync(payload.password,salt)
     payload.password = hashedPassword;
     
-    const user = await User.create(payload)
-    console.log("req.boyd",user);
+    const user = await userModel.create(payload)
+    console.log("req.body",user);
     return res.status(200).send({
         success :true,
         user
