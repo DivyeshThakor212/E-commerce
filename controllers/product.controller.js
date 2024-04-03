@@ -37,6 +37,7 @@ exports.getProduct = async (req, res) => {
             filter.search = {$regex : new RegExp(search,"i")}
         }
         // console.log(req.user.user.role === "admin")
+
         const totalProduct = await productModel.countDocuments()
         const allproduct = await productModel.find().skip(skip).limit(limit).sort(sort)
 

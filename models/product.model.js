@@ -1,4 +1,6 @@
+
 const mongoose = require("mongoose")
+
 
 const productSchema = new mongoose.Schema({
     pname:{
@@ -30,6 +32,10 @@ const productSchema = new mongoose.Schema({
         type:  mongoose.Schema.Types.ObjectId,
         require:true
     },
+    reviewId:{
+        ref: "Review",
+        type:mongoose.Schema.Types.ObjectId,
+    }
 },{
     timestamps:true,
 })
