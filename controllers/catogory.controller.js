@@ -16,7 +16,9 @@ exports.createCategory = async (req, res) => {
 //Get category
 exports.getCategory = async (req, res) => {
     try {
-        const allCategory = await categoryModel.find(req.body).populate({ path: "productid", select: "pname" })
+        const allCategory = await categoryModel.find()
+        .populate({ path: "productid", select: "pname" })
+        .populate("subCategoryId")
         return res.status(200).send({
             succes: true,
             allCategory
