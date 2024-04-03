@@ -4,7 +4,7 @@ const { checkAdmin} = require("../middleware/checkRole")
 
 const router = express.Router()
 
-router.route("/create-catogory").post(checkAdmin,createCategory)
-router.route("/get-catogory").get(checkAdmin,getCategory)
+router.route("/create-catogory").post(createCategory)
+router.route("/get-catogory").get(getCategory)
 router.route("/delete-catogory/:id").delete(checkAdmin,deleteCategory)
 module.exports = router
