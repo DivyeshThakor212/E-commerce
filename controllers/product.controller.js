@@ -34,12 +34,30 @@ exports.getProduct = async (req, res) => {
             filter.status = status
         }
         if(search){
-            filter.search = {$regex : new RegExp(search,"i")}
+            filter.pname = {$regex : new RegExp(search,"i")}
         }
+        console.log(filter,"filter")
         // console.log(req.user.user.role === "admin")
 
         const totalProduct = await productModel.countDocuments()
-        const allproduct = await productModel.find().skip(skip).limit(limit).sort(sort)
+        const allproduct = await productModel
+        .find(/*filter*/)
+        /* .skip(skip)
+        .limit(limit)
+        .sort(sort)*/
+        .populate({
+            path: "categoryId",
+            select :"categoryName"
+        })
+        .populate({
+            path :"subCategoryId",
+            select:"subCategoryName"
+        })
+        .populate({
+            path : "reviewId",
+            select:["rating","review"]
+
+        })
 
         if (!allproduct) {
             return res.status(200).json({ status: false, message: "no data found" })
