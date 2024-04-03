@@ -2,6 +2,7 @@ const subCategoryModel = require("../models/subCategory.model")
 
 exports.createSubcategory = async (req, res) => {
     try {
+        const category = await subCategoryModel.findOne()
         const subCategory = await subCategoryModel.create(req.body)
         return res.status(200).send({
             status: true,

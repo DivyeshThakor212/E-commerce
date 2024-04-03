@@ -15,8 +15,6 @@ exports.createProduct = async (req, res) => {
 }
 
 
-
-
 //read
 exports.getProduct = async (req, res) => {
     const page = parseInt(req.query.page)

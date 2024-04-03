@@ -17,10 +17,10 @@ exports.createOrder = async(req,res) =>{
      }
 }
 exports.getOrders = async(req,res) =>{
-    const page = parseInt(req.query.page) 
-    const limit = parseInt(req.query.limit) 
+    const page = parseInt(req.query.page) ||1
+    const limit = parseInt(req.query.limit) || 10
     const skip = (page-1)*limit;
-    const trackingStatus = parseInt(req.query.trackingStatus)
+    const trackingStatus = req.query.trackingStatus
     const sortBy = req.query.sortBy
     const sortOrder = req.query.sortOrder
     const search = req.query.searchTerm
@@ -33,6 +33,7 @@ exports.getOrders = async(req,res) =>{
         if(search){
             filter.search = {$regex: new RegExp(search, "i")}
         }
+     
         const orders = await orderModel.find(filter).skip(skip).limit(limit).sort(sort).populate({
             path : "userId",
             select :[ "name","address","email","mobile_no","gender"]
@@ -41,7 +42,7 @@ exports.getOrders = async(req,res) =>{
                     "category": "clothes",
             select : ["pname","category","price",""]
         })
-       
+       console.log(orders,"orders")
         const totalOrder = await orderModel.countDocuments();
 
         if (!orders.length) {
