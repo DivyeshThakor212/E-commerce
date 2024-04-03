@@ -1,6 +1,6 @@
-const monngose = require("mongoose")
+const mongoose = require("mongoose")
 
-const productSchema = new monngose.Schema({
+const productSchema = new mongoose.Schema({
     pname:{
         type:String,
         require:true,
@@ -19,9 +19,19 @@ const productSchema = new monngose.Schema({
         type:String,
         enum:["available","out of stock"],
         require:true
-    }
+    }, 
+    category:{
+        ref:"Category",
+        type: mongoose.Schema.Types.ObjectId,
+        require:true
+    },
+    subCategory:{
+        ref:"subCategory",
+        type:  mongoose.Schema.Types.ObjectId,
+        require:true
+    },
 },{
     timestamps:true,
 })
 
-module.exports = monngose.model("product",productSchema)
+module.exports = mongoose.model("product",productSchema)
