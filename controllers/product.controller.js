@@ -1,8 +1,11 @@
 const productModel = require("../models/product.model")
 const cloudinary = require("../config/cloudinary");
+
+
 //create
 exports.createProduct = async (req, res) => {
     try {
+
         const imageData = req.file.buffer.toString("base64");
       const dataUrl = `data:${req.files.mimetype};base64,${imageData}`;
 
@@ -12,6 +15,7 @@ exports.createProduct = async (req, res) => {
       });
 
       console.log(fileUrl?.url,"fileurl");
+
         const product = await productModel.create(req.body)
         return res.status(200).send({
             succes: true,

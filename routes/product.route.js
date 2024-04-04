@@ -4,11 +4,11 @@ const { authenticUser } = require("../middleware/authentication")
 const { checkAdmin,checkUser } = require("../middleware/checkRole")
 const multer  = require('multer')
 const upload = multer();
-
 const router = express.Router()
 
 
-router.route("/create-product").post(upload.array('product_image',5),createProduct)
+
+router.route("/create-product").post(upload.single("product_image"),createProduct)
 router.route("/get-productByid/:id").get(getproductByid)
 router.route("/get-product").get(authenticUser,getProduct)
 router.route("/update-product/:id").put(authenticUser,checkAdmin,updateProduct)
