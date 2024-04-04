@@ -9,6 +9,7 @@ exports.createSubcategory = async (req, res) => {
         console.log(subCategory._id); // =>new subcategory id
         category.subCategoryId.push(subCategory._id);
         console.log(category.subCategoryId);
+
         category.save();
         return res.status(200).send({
             status: true,

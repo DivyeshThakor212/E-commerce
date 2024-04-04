@@ -13,7 +13,7 @@ const catogorySchema = new mongoose.Schema({
     }],
     productid:[
         {
-        ref:"product",
+        ref:"Product",
         type: mongoose.Schema.Types.ObjectId,
         require:true
     }],

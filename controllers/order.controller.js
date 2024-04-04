@@ -1,8 +1,20 @@
 const orderModel = require("../models/order.model")
 const productModel = require("../models/product.model")
+
 const cloudinary = require("../config/cloudinary")
 
+
 exports.createOrder = async (req, res) => {
+
+
+     try {
+        const order = await orderModel.create(req.body)
+        let product = await productModel.findById(req.body.productId)
+        if( product.quantity >= order.quantity){
+
+            product.quantity -= order.quantity
+            await product.save();
+            
 
     try {
        // console.log(req.files)
@@ -40,18 +52,23 @@ exports.createOrder = async (req, res) => {
             product.quantity -= order.quantity
             await product.save();
 
+
             return res.status(200).send({
                 sucess: true,
                 order
             })
-        } else {
+
+        }else{
             return res.status(403).send({
                 status: false,
-                message: "out of stock"
+                message : "out of stock"
             })
         }
+
+     } 
 */
     } catch (error) {
+
         console.log(error)
         return res.status(500).send({
             status: false,
@@ -74,10 +91,12 @@ exports.getOrders = async (req, res) => {
         const sort = { [sortBy]: sortOrder }
         if (trackingStatus) {
             filter.trackingStatus = trackingStatus;
-        }
+        }     
+
         if (search) {
             filter.search = { $regex: new RegExp(search, "i") }
         }
+
 
         const orders = await orderModel.find(filter).skip(skip).limit(limit).sort(sort).populate({
             path: "userId",
@@ -125,7 +144,10 @@ exports.getOrder = async (req, res) => {
             .status(500)
             .send({ status: false, message: "internal server error" });
     }
-};
+
+  };
+  
+  
 
 
 //update
@@ -144,6 +166,7 @@ exports.updateOrder = async (req, res) => {
             order
 
         })
+
     } catch (error) {
         console.log(error)
         return res.status(500).send({ status: false, message: "data not found" })
@@ -151,6 +174,7 @@ exports.updateOrder = async (req, res) => {
 }
 exports.deleteOrder = async (req, res) => {
     try {
+
         let deleteOrder = await orderModel.findById(req.params.id)
         if (!deleteOrder) {
             res.status(200).json({ succes: false, message: "please provide correct id" })
@@ -158,7 +182,6 @@ exports.deleteOrder = async (req, res) => {
 
         deleteOrder = await orderModel.findByIdAndDelete(req.params.id)
         return res.status(200).json({ succes: true, message: "deleted succesfully" })
-
 
     } catch (error) {
         console.log(error, "error")
