@@ -1,9 +1,14 @@
 const subCategoryModel = require("../models/subCategory.model")
-
+const categoryModel = require("../models/category.model")
 exports.createSubcategory = async (req, res) => {
     try {
-        const category = await subCategoryModel.findOne()
-        const subCategory = await subCategoryModel.create(req.body)
+
+        const subCategory = await subCategoryModel.create(req.body) //=> create new subcategory
+        const category = await categoryModel.findById(req.body.categoryId)
+        console.log(subCategory._id)
+        category.categoryId.push(subCategory._id)
+        console.log(category.subCategoryId)
+        category.save();
         return res.status(200).send({
             status: true,
             subCategory

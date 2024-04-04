@@ -1,15 +1,29 @@
 const orderModel = require("../models/order.model")
+const productModel = require("../models/product.model")
 
 exports.createOrder = async(req,res) =>{
 
      try {
         const order = await orderModel.create(req.body)
-        return res.status(200).send({
-            sucess: true,
-            order
-        })
-        
+        let product = await productModel.findById(req.body.productId)
+        if( product.quantity >= order.quantity){
+
+            product.quantity -= order.quantity
+            await product.save();
+            
+            return res.status(200).send({
+                sucess: true,
+                order
+            })
+        }else{
+            return res.status(403).send({
+                status: false,
+                message : "out of stock"
+            })
+        }
+
      } catch (error) {
+        console.log(error)
         return res.status(500).send({
             status:false,
             message:"Internal server error "
@@ -33,7 +47,7 @@ exports.getOrders = async(req,res) =>{
         if(search){
             filter.search = {$regex: new RegExp(search, "i")}
         }
-     
+       
         const orders = await orderModel.find(filter).skip(skip).limit(limit).sort(sort).populate({
             path : "userId",
             select :[ "name","address","email","mobile_no","gender"]
@@ -82,13 +96,11 @@ exports.getOrder = async (req, res) => {
     }
   };
   
-
-//update
-exports.updateOrder = async(req,res) => {
-    try {
-     let order = await orderModel.findById(req.params.id)
- 
-     if(!order){
+  //update
+  exports.updateOrder = async(req,res) => {
+      try {
+        let order = await orderModel.findById(req.params.id)
+          if(!order){
          return res.status(200).json({ succes:false, message:"please provide correct id"})
      }
      
@@ -114,7 +126,6 @@ exports.updateOrder = async(req,res) => {
      deleteOrder = await orderModel.findByIdAndDelete(req.params.id)
      return res.status(200).json({succes:true,message:"deleted succesfully"})
  
-     
     } catch (error) {
      console.log(error,"error")
      return res.status(500).send({

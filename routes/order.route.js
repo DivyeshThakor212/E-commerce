@@ -10,7 +10,7 @@ const {checkAdmin,checkUser } = require("../middleware/checkRole")
 const router = express.Router()
 
 
-router.route("/create-order").post(authenticUser,checkUser,createOrder)
+router.route("/create-order").post(createOrder)
 router.route("/get-orders").get(authenticUser,checkUser,getOrders)
 router.route("/get-order/:id").get(getOrder)
 router.route("/update-order/:id").put(authenticUser,checkUser,updateOrder)
